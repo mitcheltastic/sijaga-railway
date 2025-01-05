@@ -5,7 +5,7 @@ This is the API for "SiJaga" that manages user authentication, card ID operation
 ---
 
 ## Base URL
-- **Production URL**: [https://sijaga-be.vercel.app](https://sijaga-be.vercel.app)
+- **Production URL**: [https://sijaga-railway-production.up.railway.app/](https://sijaga-railway-production.up.railway.app/)
 
 ---
 
