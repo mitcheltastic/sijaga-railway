@@ -24,7 +24,11 @@ initSocket(server); // Pass the server instance to Socket.IO
 
 // CORS setup
 const corsOptions = {
-  origin: ["http://localhost:3000"],
+  origin: [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+    "http://127.0.0.1:8080"
+    ],
   methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
   credentials: true,
   allowedHeaders: ["Content-Type", "Authorization"],
