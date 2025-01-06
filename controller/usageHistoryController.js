@@ -35,14 +35,21 @@ const addUsageHistoryController = async (req, res) => {
       });
     }
 
+    console.log("Request received:", req.body);
+
     const usageHistory = await addUsageHistoryService(card_id, status, availStatus);
+
+    console.log("Usage history created:", usageHistory);
 
     // Emit real-time event
     const io = getIO();
     io.emit("usageHistory_update", usageHistory);
 
+    console.log("Real-time event emitted");
+
     res.json({ success: true, usageHistory });
   } catch (error) {
+    console.error("Error in addUsageHistoryController:", error);
     res.status(400).json({ success: false, message: error.message });
   }
 };
