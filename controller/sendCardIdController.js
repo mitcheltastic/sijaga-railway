@@ -6,17 +6,26 @@ const {
 // Controller to create a CardIdDump
 const createCardIdDumpController = async (req, res) => {
   try {
-    const { cardId } = req.body;
-    const result = await createCardIdDumpService(cardId);
+    const { cardId } = req.body; // Use `cardId` from the payload
+
+    if (!cardId) {
+      return res.status(400).json({
+        success: false,
+        message: "Card ID is required.",
+      });
+    }
+
+    // Pass `cardId` as `card_id` to the service
+    const createdCardIdDump = await createCardIdDumpService(cardId);
 
     res.status(201).json({
-      status: true,
+      success: true,
       message: "CardIdDump created successfully.",
-      data: result,
+      data: createdCardIdDump,
     });
   } catch (error) {
     res.status(400).json({
-      status: false,
+      success: false,
       message: error.message,
     });
   }
@@ -25,19 +34,22 @@ const createCardIdDumpController = async (req, res) => {
 // Controller to fetch the latest CardIdDump
 const getLatestCardIdDumpController = async (req, res) => {
   try {
-    const result = await getLatestCardIdDumpService();
+    const latestCardIdDump = await getLatestCardIdDumpService();
 
     res.status(200).json({
-      status: true,
+      success: true,
       message: "Latest CardIdDump fetched successfully.",
-      data: result,
+      data: latestCardIdDump,
     });
   } catch (error) {
     res.status(400).json({
-      status: false,
+      success: false,
       message: error.message,
     });
   }
 };
 
-module.exports = { createCardIdDumpController, getLatestCardIdDumpController };
+module.exports = {
+  createCardIdDumpController,
+  getLatestCardIdDumpController,
+};
