@@ -1,21 +1,33 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
+const { getIO } = require("../socket"); // Import the Socket.IO instance getter
 
-// Function to create a new CardIdDump
-const createCardIdDump = async (card_id) => {
-  return await prisma.cardIdDumps.create({
-    data: { card_id },
+// Create a new CardIdDump
+const createCardIdDump = async (cardId) => {
+  const cardIdDump = await prisma.cardIdDumps.create({
+    data: { card_id: cardId },
   });
+
+  // Emit real-time event for CardIdDump creation
+  const io = getIO();
+  io.emit("cardIdDump_created", cardIdDump);
+  console.log("Real-time event emitted: cardIdDump_created", cardIdDump);
+
+  return cardIdDump;
 };
 
-// Function to fetch the latest CardIdDump
+// Fetch the latest CardIdDump
 const getLatestCardIdDump = async () => {
-  return await prisma.cardIdDumps.findFirst({
+  const latest = await prisma.cardIdDumps.findFirst({
     orderBy: { id: "desc" },
   });
+
+  // Emit real-time event for fetching the latest CardIdDump
+  const io = getIO();
+  io.emit("cardIdDump_latest", latest);
+  console.log("Real-time event emitted: cardIdDump_latest", latest);
+
+  return latest;
 };
 
-module.exports = {
-  createCardIdDump,
-  getLatestCardIdDump,
-};
+module.exports = { createCardIdDump, getLatestCardIdDump };
