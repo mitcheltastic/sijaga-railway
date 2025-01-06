@@ -20,7 +20,7 @@ const addUsageHistory = async (card_id, status, availStatus) => {
       name: user.name,
       status: status,
       card_id: card_id,
-      availtatus: availStatus,
+      availStatus: availStatus,
     },
   });
 
