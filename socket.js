@@ -14,7 +14,8 @@ const initSocket = (server) => {
         "http://localhost:3000",  // Frontend origin
         "http://127.0.0.1:3000",
         "http://127.0.0.1:8080",
-        "https://sijaga-frontend-production.up.railway.app",  // Alternative local frontend origin
+        "https://sijaga-frontend-production.up.railway.app",
+        "https://sijaga-web.vercel.app",
       ],
       methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"], // Allow specific HTTP methods
       credentials: true, // Allow credentials (cookies, headers)
